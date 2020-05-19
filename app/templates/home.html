@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Welcome</h1>
+<p>A website about my learning experiments. Check out the <a href="/blog">blog</a> where
+I write about stuff. Find out more about me on the <a href="/about">about</a> page.</p>
+<h2>Latest Posts</h2>
+<ul>
+    {% if articles %}
+        {% for article in articles %}
+        <li>{{ article.timestamp[:10] }} - <a href="{{ url_for('detail', slug=article.slug) }}">{{ article.title }}</a></li>
+        {% endfor %}
+    {% else %}
+        <li>No posts :(</li>
+    {% endif %}
+</ul>
+{% endblock page_content %}

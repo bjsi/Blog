@@ -1,0 +1,9 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyTypeCheckerInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="Scratches and Consoles" level="ERROR" enabled="true" />
+      <scope name="Project Files" level="ERROR" enabled="true" />
+    </inspection_tool>
+  </profile>
+</component>

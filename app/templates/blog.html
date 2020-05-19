@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Blog Posts</h1>
+{% if articles %}
+    {% for article in articles %}
+        <div class="card mb-3"
+             style="width: 100%;">
+            <div class="card-body">
+                <h2 >
+                    <a href="{{ url_for('detail', slug=article.slug) }}"
+                       style="color:black;">{{ article.title }}</a>
+                </h2>
+                <small>
+                    <p>
+                        <i class="fa fa-user-o"></i> Jamesb  |  <i class="fa fa-calendar"></i> {{ article.timestamp[:10] }}
+                    </p>
+                </small>
+                <hr>
+                <p class="card-text">
+                    {{ article.content }}
+                </p>
+                <hr>
+                <small>
+                    <p>
+                        <i class="fa fa-pencil-square-o"></i> Modified: {{ article.timestamp[:10] }}  |
+                        <i class="fa fa-comments-o"></i> Comments  |
+                        <i class="fa fa-file-word-o"></i> Words: {{ article.content | wordcount }}
+                        <i class="fa fa-fa-tags"></i> Concepts
+                    </p>
+                </small>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">No posts :(</h3>
+            <h6 class="card-subtitle mb-2">Check back later, maybe...</h6>
+        </div>
+    </div>
+{% endif %}
+{% endblock page_content %}
+
+{% block pagination %}
+    <nav aria-label="..."
+         class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item {% if not prev_url %} disabled {% endif %}">
+                <a class="page-link" href="{{ prev_page or '#' }}"><i class="fa fa-arrow-left"></i> Newer Posts</a>
+            </li>
+            <li class="page-item {% if not next_url %} disabled {% endif %}">
+                <a class="page-link" href="{{ next_page or '#' }}">Older Posts <i class="fa fa-arrow-right"></i></a>
+            </li>
+        </ul>
+    </nav>
+{% endblock pagination %}
