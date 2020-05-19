@@ -10,7 +10,8 @@ from slugify import slugify
 
 
 password = os.getenv('NEO4J_PASSWORD')
-graph = Graph()
+user = os.getenv("NEO4J_USERNAME")
+graph = Graph("bolt://localhost:7687", user=user, password=password)
 
 
 # TODO: Use unique constraints?
