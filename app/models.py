@@ -9,10 +9,9 @@ import uuid
 from slugify import slugify
 
 
-password = os.environ.get('NEO4J_PASSWORD')
-database_name = "Blog"
-
-graph = Graph("Blog", password=password)
+password = os.getenv('NEO4J_PASSWORD')
+username = os.getenv("NEO4J_USERNAME")
+graph = Graph(username=username, password=password)
 
 
 # TODO: Use unique constraints?
