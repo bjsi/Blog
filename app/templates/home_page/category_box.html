@@ -1,0 +1,10 @@
+<div class="card" style="width: 100%">
+    <div class="card-body">
+        <h5 class="card-title">Categories</h5>
+        {% for category in categories %}
+            <div>
+                <a href="{{ url_for('categories', category=category)}}" class="badge badge-warning">Warning</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

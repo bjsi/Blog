@@ -1,0 +1,40 @@
+<div class="mb-3">
+    <button class="btn btn-outline-primary btn-sm"
+       data-toggle="collapse"
+       href="#comment-form-{{ comment.uuid }}">
+        Reply
+    </button>
+</div>
+<div class="collapse" id="comment-form-{{ comment.uuid }}">
+    <form action="{{ url_for('detail', slug=article.slug, parent='comment', parent_id=comment.uuid) }}" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+            {% for error in form.username.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.comment.label }}<br>
+            {{ form.comment(size=32) }}
+            {% for error in form.comment.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.captcha }}
+            {% for error in form.captcha.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>

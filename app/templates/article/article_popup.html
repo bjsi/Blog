@@ -1,0 +1,12 @@
+<h5>
+    <span>
+        <img src="{{ url_for('static', filename='images/topic_icon.jpg') }}">
+        <a href="{{ url_for('detail', slug=article.slug) }}">
+            {{ article.title }}
+        </a>
+    </span>
+</h5>
+<h6>Summary:</h6>
+<p>
+    {{ article.summary }}
+</p>

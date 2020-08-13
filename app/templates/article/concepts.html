@@ -1,0 +1,10 @@
+<div class="btn-toolbar" role="toolbar">
+{% for concept in article.concepts %}
+<div class="button-group mr-2" role="group"></div>
+    <button type="button"
+            class="btn btn-outline-warning btn-sm">
+        <i class="fa fa-tags"></i> {{ concept.name }}
+    </button>
+</div>
+{% endfor %}
+</div>

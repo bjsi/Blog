@@ -1,0 +1,23 @@
+{% for comment in article.comments.threads recursive %}
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="media mb-2">
+            <img class="mr-3"
+                 src="{{ url_for('static', filename='avatars/' + comment.author + '_m.png') }}"
+                 alt="Avatar Image">
+            <div class="media-body">
+                <h5 class="mt-0">{{ comment.author }} <small><i> {{ comment.timestamp[:10] }}</i></small></h5>
+                <div class="mb-3">
+                    {{ comment.content }}
+                </div>
+                <div>
+                    {% include 'comments/comment_reply_form.html' %}
+                </div>
+                {% if comment.children %}
+                    {{ loop(comment.children) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

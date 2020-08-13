@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>Welcome</h1>
+<p>A website about my learning experiments. Check out the <a href="/blog">blog</a> where
+I write about stuff. Find out more about me on the <a href="/about">about</a> page.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h2>Latest Posts</h2>
+            <ul>
+                {% if articles %}
+                {% for article in articles %}
+                <li>{{ article["timestamp"][:10] }} - <a class="article" slug="{{ article.slug }}" href="{{ url_for('detail', slug=article.slug) }}">{{ article.title }}</a></li>
+                {% endfor %}
+                {% else %}
+                <li>No posts :(</li>
+                {% endif %}
+            </ul>
+        </div>
+            <div class="col">
+                <div class="row mb-3">
+                    {% include 'home_page/category_box.html' %}
+                </div>
+                <div class="row mb-3">
+                    {% include 'home_page/concept_box.html' %}
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock page_content %}

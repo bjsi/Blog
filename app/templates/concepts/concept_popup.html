@@ -1,0 +1,11 @@
+<h5>
+    <span>
+        <img src="{{ url_for('static', filename='images/concept_icon.jpg') }}">
+        <a href="{{ url_for('concepts', concept=concept.name) }}">
+            {{ concept.name | title }}
+        </a>
+    </span>
+</h5>
+<p>
+    {{ concept.content }}
+</p>

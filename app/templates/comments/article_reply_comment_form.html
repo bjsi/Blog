@@ -1,0 +1,33 @@
+<div>
+    <form action="{{ url_for('detail', slug=article.slug, parent='article') }}" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+            {% for error in form.username.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.comment.label }}<br>
+            {{ form.comment }}
+            {% for error in form.comment.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.captcha }}
+            {% for error in form.captcha.errors %}
+            <span class="error text-danger">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+<div class="card mb-3"
+     style="width: 100%;">
+    <div class="card-body">
+        <h2>
+            {% include 'article/article_title.html' %}
+        </h2>
+        {% include 'article/article_info_top_component.html' %}
+        <hr>
+            <div>
+                <h5>
+                    Summary:
+                </h5>
+                {{ article.summary | safe }}
+            </div>
+            <div>
+                {% include 'article/concept_mentions.html' %}
+            </div>
+        <hr>
+        {% include 'article/article_info_bottom_component.html' %}
+        <hr>
+        {% include 'article/categories.html' %}
+    </div>
+</div>

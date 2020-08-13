@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h2>Blog Post Summaries</h2>
+{% if articles %}
+    {% for article in articles %}
+        {% include 'article/summary_article.html' %}
+    {% endfor %}
+{% else %}
+    {% include 'article/no_articles_message.html' %}
+{% endif %}
+{% endblock page_content %}
+
+{% block pagination %}
+    {% include 'pagination.html' %}
+{% endblock pagination %}

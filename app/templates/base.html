@@ -4,11 +4,14 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <title>Experimental Learning</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="{{ url_for('static', filename='js/article_link_hover.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/concept_hover.js') }}"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
@@ -23,15 +26,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/blog"><i class="fa fa-pencil"></i> Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About</a>
-                    </li>
-                    <li class="nav-item"></li>
-                        <a class="nav-link" href="/contact"><i class="fa fa-envelope"></i> Contact Me</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog"><i class="fa fa-pencil"></i> Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact"><i class="fa fa-envelope"></i> Contact Me</a>
+                        </li>
                     </ul>
+                    {% if g.search_form %}
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ url_for('search') }}">
+                        <div>
+                            {{ g.search_form.q(size=30, class='form-control mr-sm-2', type='search', placeholder=g.search_form.q.label.text) }}
+                        </div>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </nav>

@@ -1,0 +1,18 @@
+<div class="card mb-3" style="width: 100%;">
+    <div class="card-body">
+        <h4>{{ article.comments.count }} {% if article.comments.count == 1 %} Comment {% else %} Comments {% endif %} on &quot;{{ article.title }}&quot;</h4>
+        <button class="btn btn-sm btn-outline-primary mb-3"
+                data-toggle="collapse"
+                href="#comment-area">
+            View Comments
+        </button>
+        <div id="comment-area" class="collapse">
+            <h6>Fill out the form below to comment:</h6>
+            <div>
+                {% include 'comments/article_reply_comment_form.html' %}
+                <hr>
+                {% include 'comments/comments.html' %}
+            </div>
+        </div>
+    </div>
+</div>

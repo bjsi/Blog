@@ -1,0 +1,11 @@
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">Concepts</h5>
+        {% for concept in concepts %}
+        <div>
+            <a href="{{ url_for('concepts', concept=concept.name)}}"
+               class="badge badge-warning">{{ concept.name }}</a> ({{ concept.count }})
+        </div>
+        {% endfor %}
+    </div>
+</div>

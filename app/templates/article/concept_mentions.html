@@ -1,0 +1,13 @@
+<h5>
+    Concept Mentions:
+</h5>
+{% for concept in article.concepts %}
+    {% if concept.mentions | count > 0 %}
+    <h6><span class="concept">{{ concept.name | title }}</span> ({{ concept.mentions | count }}):</h6>
+        <ul>
+            {% for mention in concept.mentions %}
+                <li>&quot;{{ mention }}&quot;</li>
+            {% endfor %}
+        </ul>
+    {%endif%}
+{% endfor %}

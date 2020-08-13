@@ -1,0 +1,23 @@
+Lucene Query Syntax
+1.Boolean Operations
+jack AND jill - Will return articles that contain both jack and jill
+ahab NOT moby - Will return articles that contain ahab but not moby
+tom OR jerry - Will return articles that contain tom or jerry, or both
+2. Fields
+title: “Ned Stark” - Will return articles where the title field contains "Ned Stark"
+Available Fields:
+3. Wildcards
+Ma?s - Will match Mars, Mass, and Maps
+Ma*s - Will match Mars, Matches, and Massachusetts
+4. Regex Queries
+/p[ea]n/ — Will match both pen and pan
+/<.+>/ — Will match text that resembles an HTML tag
+5. Fuzzy Search Queries
+Use the tilde (~) to find similar terms:
+blow~
+This will return results like “blew,” “brow,” and “glow.”
+
+Use the tilde (~) along with a number to specify the how big the distance between words can be:
+
+john~2
+This will match, among other things: “jean,” “johns,” “jhon,” and “horn”
