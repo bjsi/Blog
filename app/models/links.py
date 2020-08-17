@@ -1,10 +1,12 @@
 import logging
+from slugify import slugify
 
 from typing import Any, Dict, List, Optional
 import datetime as dt
 from . import graph
 from py2neo.ogm import GraphObject, Property
 
+from .concept import Concept
 from ..html_parsing.concept_parser import parse_concepts
 
 
@@ -21,6 +23,7 @@ class Link(GraphObject):
     content: str = Property()
     last_edited: str = Property()
     timestamp: str = Property()
+    slug: str = Property()
 
     def __init__(self, url: str, title: str, author: str, content: str):
         self.url = url
@@ -29,6 +32,7 @@ class Link(GraphObject):
         self.content = content
         self.timestamp = dt.datetime.now().isoformat()
         self.last_edited = self.timestamp
+        self.slug = slugify(self.title)
 
     def to_dict(self):
         return {
@@ -161,6 +165,9 @@ class Link(GraphObject):
 
         # Add concept relations to graph
         for related_concept in related_concepts:
+
+            rel = Concept(related_concept.name, "")
+            rel.create()
 
             query = """
                 MERGE (related: Concept { name: $related_name })

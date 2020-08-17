@@ -11,35 +11,40 @@
     </div>
 
     <h1>
-        <u>Concepts</u>
+        Concepts
     </h1>
 
     <p>
-        A list of the concepts I frequently use in articles, working notes, podcasts and in my SM collection.
+        An alphabetical list of the concepts I frequently use in articles, working notes, podcasts and in my SM collection.
     </p>
 
+    <h5>
+        Contents
+    </h5>
     {% if grouped_concepts %}
-
-        {% for group in grouped_concepts %}
-        <a href="#{{ group[0] }}">{{ group[0] }}</a>
-        <ul>
-            {% for concept in group[1] %}
-                <li>
-                    <a href="#{{ concept.slug }}">{{ concept.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-        {% endfor%}
-
-        {% for group in grouped_concepts %}
-            <div id="{{ group[0] }}">
-                <h2>{{ group[0] }}</h2>
+        <dl>
+            {% for group in grouped_concepts %}
+                <dt>
+                    <a href="#{{ group[0] }}">{{ group[0] }}</a>
+                </dt>
                 {% for concept in group[1] %}
-                    {% include 'concepts/concept.html' %}
+                    <dd style="padding-left: 10px;">
+                        <a href="#{{ concept.slug }}">{{ concept.name }}</a>
+                    </dd>
                 {% endfor %}
-            </div>
-        {% endfor %}
+            {% endfor%}
 
+            {% for group in grouped_concepts %}
+                <div id="{{ group[0] }}">
+                    <h2>{{ group[0] }}</h2>
+                    {% for concept in group[1] %}
+                        {% include 'concepts/concept.html' %}
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endfor %}
+
+        </dl>
     {% else %}
 
         <p>No concepts. Check back later...</p>

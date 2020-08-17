@@ -1,10 +1,20 @@
-<div class="card mb-3" style="background-color: #ffffff;">
+<div id="#{{ link.slug }}" class="card mb-3">
     <div class="card-body">
-        <h5>
+        <h5 class="mb-3">
             {{ link.title }}
         </h5>
         <p>
-            {{ link.content }}
+            <i class="fa fa-calendar"></i> Created: {{ link.timestamp[:10] }} |
+            <i class="fa fa-pencil-square-o"></i> Last Edited: {{ link.last_edited[:10] }}  |
+            <i class="fa fa-file-word-o"></i> Word Count: {{ link.content | striptags | wordcount }}
+        </p>
+        <hr>
+        <p>
+            {% if link.content %}
+            {{ link.content | safe }}
+            {% else %}
+            ...
+            {% endif %}
         </p>
         <p>
             <div>
@@ -13,9 +23,7 @@
             <div>
                 #Link: <a href="{{ link.url }}">{{ link.url }}</a>
             </div>
-            <div>
-                #Source: {{ link.source }}
-            </div>
         </p>
     </div>
 </div>
+

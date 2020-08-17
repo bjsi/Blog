@@ -4,8 +4,8 @@ from typing import Dict
 from app.models.links import Link
 
 # flask
-from flask import current_app as app, make_response, url_for
-from flask import render_template, request, g
+from flask import current_app as app
+from flask import render_template, request
 
 
 @app.route("/links", methods=["GET", "POST"])

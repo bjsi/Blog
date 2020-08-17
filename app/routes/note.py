@@ -46,7 +46,7 @@ def handle_note_post_request():
         if l.create():
             return l.to_dict(), 201
         else:
-            return {"Message": f"Failed. Attempt to add link {title} to graph failed."}, 400
+            return {"Message": f"Failed. Attempt to add note {title} to graph failed."}, 400
 
 
 def handle_note_get_request():
@@ -62,7 +62,7 @@ def handle_note_get_request():
 def validate_data(data: Dict) -> bool:
 
     """
-    Validata link data
+    Validata note data
     :param data:
     :return:
     """

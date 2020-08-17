@@ -1,5 +1,4 @@
 from slugify import slugify
-
 from . import graph
 from typing import Optional, Dict, Any
 from py2neo.ogm import GraphObject, Property
@@ -184,8 +183,8 @@ class Concept(GraphObject):
         query = """
             CYPHER expressionEngine=interpreted
             MATCH (c: Concept)
-            OPTIONAL MATCH (c)<--(n)
-            WITH c as concept,n{.*, type: labels(n)} as n, collect(n) as links
+            OPTIONAL MATCH (c)<-[]-(n)
+            WITH c as concept, collect(n) as links
             RETURN concept{.*, links: links}
         """
 

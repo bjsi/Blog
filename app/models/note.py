@@ -1,11 +1,8 @@
-from typing import Any
-from plistlib import Dict
-import uuid
 from py2neo.ogm import GraphObject, Property
 from . import graph
-import logging
 import datetime as dt
 
+from .concept import Concept
 from ..html_parsing.concept_parser import parse_concepts
 
 
@@ -20,6 +17,7 @@ class Note(GraphObject):
     content: str = Property()
     timestamp: str = Property()
     last_edited: str = Property()
+    slug: str = Property()
 
     def __init__(self, title: str, content: str) -> None:
         self.title = title
@@ -65,7 +63,7 @@ class Note(GraphObject):
             return []
 
         return [
-            item["link"]
+            item["note"]
             for item in data
         ]
 
@@ -98,7 +96,7 @@ class Note(GraphObject):
 
         # 2. Update content and last_edited
         query = """
-            MATCH (a: Link { title: $title })
+            MATCH (a: Note { title: $title })
             SET a.content = $content
             SET a.last_edited = $last_edited
         """
@@ -108,7 +106,7 @@ class Note(GraphObject):
         tx.commit()
 
         # 3. Update concept relationships
-        Note.add_concepts(title)
+        Note.add_related_concepts(title)
         return True
 
     def create(self) -> bool:
@@ -138,6 +136,9 @@ class Note(GraphObject):
 
         # Add concept relations to graph
         for related_concept in related_concepts:
+
+            rel = Concept(related_concept.name, "")
+            rel.create()
 
             query = """
                 MERGE (related: Concept { name: $related_name })

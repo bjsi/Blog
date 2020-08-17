@@ -1,6 +1,18 @@
-<div class="card mb-3">
+<div id="{{ note.slug }}" class="card mb-3">
     <div class="card-body">
-        <h5>{{ note.title }}</h5>
-        <p>{{ note.content }}</p>
+        <h4>{{ note.title }}</h4>
+        <p>
+            <i class="fa fa-calendar"></i> Created: {{ note.timestamp[:10] }} |
+            <i class="fa fa-pencil-square-o"></i> Last Edited: {{ note.last_edited[:10] }}  |
+            <i class="fa fa-file-word-o"></i> Word Count: {{ note.content | striptags | wordcount }}
+        </p>
+        <hr>
+        <p>
+            {% if note.content %}
+            {{ note.content | safe }}
+            {% else %}
+            ...
+            {% endif %}
+        </p>
     </div>
 </div>

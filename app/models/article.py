@@ -10,6 +10,7 @@ from app.models.pagination import Paginated
 from app.html_parsing.summary_parser import parse_summary
 import logging
 from . import graph
+from .concept import Concept
 
 
 class Article(GraphObject):
@@ -82,6 +83,10 @@ class Article(GraphObject):
 
         # Add concept relations to graph
         for concept in concepts:
+
+            rel = Concept(concept.name, "")
+            rel.create()
+
             # Add concept
             query = """
                 MERGE (c: Concept { name: $name })
@@ -234,7 +239,9 @@ class Article(GraphObject):
 
         :return: A List representing all published Articles.
         """
+
         query = """
+            CYPHER expressionEngine=interpreted
             MATCH (article: Article { published: True })
             OPTIONAL MATCH (article: Article {published: True})-[rel:HAS_CONCEPT]->(concept: Concept)
             OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
@@ -257,6 +264,7 @@ class Article(GraphObject):
         :return: A List representing all unpublished Articles.
         """
         query = """
+            CYPHER expressionEngine=interpreted
             MATCH (article: Article { published: False })
             OPTIONAL MATCH (article: Article {published: False})-[rel:HAS_CONCEPT]->(concept: Concept)
             OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
@@ -286,6 +294,7 @@ class Article(GraphObject):
 
         # Find similar articles
         query = """
+            CYPHER expressionEngine=interpreted
             MATCH (this: Article { slug: $slug })-[:HAS_CONCEPT]->(c: Concept),
                   (other: Article)-[rel:HAS_CONCEPT]->(c)
             WHERE this <> other
@@ -312,6 +321,7 @@ class Article(GraphObject):
         if title:
 
             query = """
+                CYPHER expressionEngine=interpreted
                 MATCH (article: Article { title: $title })
                 OPTIONAL MATCH (article: Article {title: $title})-[rel:HAS_CONCEPT]->(concept: Concept)
                 OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
@@ -325,6 +335,7 @@ class Article(GraphObject):
         elif slug:
 
             query = """
+                CYPHER expressionEngine=interpreted
                 MATCH (article: Article { slug: $slug })
                 OPTIONAL MATCH (article: Article {slug: $slug})-[rel:HAS_CONCEPT]->(concept: Concept)
                 OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
@@ -353,6 +364,7 @@ class Article(GraphObject):
         :return: Paginated object or None.
         """
         query = """
+            CYPHER expressionEngine=interpreted
             MATCH (concept: Concept {name: $concept})<-[rel:HAS_CONCEPT]-(article: Article)
             OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
             WITH COLLECT(rel{.*, name: concept.name}) as concepts, article, COLLECT(category) as categories
@@ -380,6 +392,7 @@ class Article(GraphObject):
 
         # TODO: Requires FTS
         query = """
+            CYPHER expressionEngine=interpreted
             CALL db.index.fulltext.queryNodes("articleContent", $search) YIELD node as article, score
             OPTIONAL MATCH (article: Article {published: True})-[rel:HAS_CONCEPT]->(concept: Concept)
             OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
@@ -411,6 +424,7 @@ class Article(GraphObject):
         """
 
         query = """
+            CYPHER expressionEngine=interpreted
             MATCH (article: Article { published: True })
             OPTIONAL MATCH (article: Article {published: True})-[rel:HAS_CONCEPT]->(concept: Concept)
             OPTIONAL MATCH (article)-[:HAS_CATEGORY]-(category: Category)
