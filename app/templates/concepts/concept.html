@@ -29,16 +29,16 @@
                 {% for link in concept.links %}
 
                     {% if "Concept" in link.labels %}
-                        {% include "concepts/links/concept_link.html" %}
+                        {% include "concepts/concept_link.html" %}
 
                     {% elif "Article" in link.labels  %}
-                        {% include "concepts/links/article_link.html "%}
+                        {% include "concepts/article_link.html" %}
 
                     {% elif "Link" in link.labels %}
-                        {% include "concepts/links/link_link.html " %}
+                        {% include "concepts/link_link.html" %}
 
                     {% elif "Note" in link.labels %}
-                        {% include "concepts/links/note_link.html" %}
+                        {% include "concepts/note_link.html" %}
 
                     {% endif %}
 
