@@ -17,6 +17,7 @@ from flask import render_template, request
 #
 #    c = Concept.get_concepts()
 #    return render_template("concepts/concepts.html", concepts=c)
+from app.routes.authentication import authenticated
 
 
 @app.route("/concepts", methods=["GET", "POST"])
@@ -43,6 +44,9 @@ def handle_concept_post_request():
     """
 
     # TODO: Validation
+
+    if not authenticated():
+        return {"Message": "Authorization failed"}, 401
 
     data = request.json
     if not data:

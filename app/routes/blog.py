@@ -7,6 +7,8 @@ from app.models.article import Article
 from flask import current_app as app, make_response, url_for
 from flask import render_template, request, g
 
+from app.routes.authentication import authenticated
+
 
 @app.route("/articles/<slug>", methods=["GET"])
 def article(slug: str):
@@ -56,15 +58,8 @@ def handle_articles_post_request():
     :return:
     """
 
-    # Validate request
-    #if not request.authorization:
-    #    return make_response("No authorization headers found.")
-
-    #if request.authorization.username != app.config["BASIC_AUTH_USERNAME"]:
-    #    return make_response("Authorization failed.", 401)
-
-    #if request.authorization.password != app.config["BASIC_AUTH_PASSWORD"]:
-    #    return make_response("Authorization failed.", 401)
+    if not authenticated():
+        return {"Message": "Authorization failed"}, 401
 
     data = request.json
     if not data:
@@ -112,4 +107,5 @@ def validate_data(data: Dict) -> bool:
         return False
 
     return True
+
 

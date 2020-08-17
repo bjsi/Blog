@@ -7,6 +7,8 @@ from app.models.note import Note
 from flask import render_template, request
 from flask import current_app as app
 
+from app.routes.authentication import authenticated
+
 
 @app.route("/notes", methods=["GET", "POST"])
 def notes():
@@ -23,7 +25,8 @@ def handle_note_post_request():
     :return:
     """
 
-    # TODO: Validation
+    if not authenticated():
+        return {"Message": "Authorization failed"}, 401
 
     data = request.json
     if not data:

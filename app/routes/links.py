@@ -7,6 +7,8 @@ from app.models.links import Link
 from flask import current_app as app
 from flask import render_template, request
 
+from app.routes.authentication import authenticated
+
 
 @app.route("/links", methods=["GET", "POST"])
 def links():
@@ -39,7 +41,8 @@ def handle_links_post_request():
     :return:
     """
 
-    # TODO: Validation
+    if not authenticated():
+        return {"Message": "Authorization failed"}, 401
 
     data = request.json
     if not data:
