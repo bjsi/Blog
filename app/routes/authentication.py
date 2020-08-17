@@ -18,3 +18,5 @@ def authenticated() -> bool:
     if request.authorization.password != app.config["BASIC_AUTH_PASSWORD"]:
         return False
 
+    return True
+

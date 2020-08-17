@@ -33,9 +33,10 @@ def add_fts_index():
 
 def drop_fts_index():
     query = """
+        CALL db.index.fulltext.drop("articleContent")
     """
-    pass
+    graph.run(query)
 
 
-# drop_fts_index()
-# add_fts_index()
+drop_fts_index()
+add_fts_index()
