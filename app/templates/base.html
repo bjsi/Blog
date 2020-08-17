@@ -14,38 +14,8 @@
         <script src="{{ url_for('static', filename='js/concept_hover.js') }}"></script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-            <div class="container">
-                <a class="navbar-brand" href="/"><i class="fa fa-flask"></i> Experimental Learning</a>
-                <button class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarToggler">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarToggler">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/blog"><i class="fa fa-pencil"></i> Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/contact"><i class="fa fa-envelope"></i> Contact Me</a>
-                        </li>
-                    </ul>
-                    {% if g.search_form %}
-                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ url_for('search') }}">
-                        <div>
-                            {{ g.search_form.q(size=30, class='form-control mr-sm-2', type='search', placeholder=g.search_form.q.label.text) }}
-                        </div>
-                    </form>
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
+        {% include 'navbar.html' %}
 
         <div class="container mb-2">
             {% block page_content %}
@@ -58,12 +28,7 @@
         </div>
 
         <div class="container mb-2">
-            <footer>
-                <hr>
-                <small>
-                    <p class="text-center">Experimental Learning <i class="fa fa-copyright"></i> 2020</small>
-                </small>
-            </footer>
+            {% include 'footer.html' %}
         </div>
     </body>
 </html>

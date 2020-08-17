@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div>
+    <div class="text-center">
+        <img src="/static/images/links-icon.png" class="mb-6">
+    </div>
+    <h1>Links</h1>
+    <p>A compilation of the best material I've imported into my collection recently</p>
+    <p>You can sign up for my newsletter <a href="https://experimentallearning.substack.com/p/coming-soon">here</a> for more commentary, extracts and items from the links I shared.</p>
+
+    {% for link in links %}
+        {% include 'links_page/link.html'%}
+    {% endfor %}
+
+</div>
+
+{% endblock page_content %}

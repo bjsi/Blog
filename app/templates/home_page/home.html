@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
 {% block page_content %}
+<div class="text-center">
+    <img style="width: 25%; height: 25%" src="/static/images/logos/experimental-learning-logo.png">
+</div>
 <h1>Welcome</h1>
-<p>A website about my learning experiments. Check out the <a href="/blog">blog</a> where
-I write about stuff. Find out more about me on the <a href="/about">about</a> page.</p>
+<p>A website about my learning experiments. Check out the <a href="articles">articles</a> I've written about my wacky ideas.
+    The <a href="/links">links</a> page might interest you if you are short on interesting material to import.
+    You can take a look at my working notes <a href="/notes">here</a>.
+    Find out more about me on the <a href="/about">about</a> page.
+    I also have a <a href="https://experimentallearning.substack.com/p/coming-soon">newsletter</a> which shares more of my working notes, commentary on links and extracts / items from links.
+</p>
+
+<p>
+    <a href="/rss"><i class="fa fa-rss" aria-hidden="true"></i> RSS feed</a>
+</p>
+
+
 <div class="container">
     <div class="row">
         <div class="col-8">
@@ -11,7 +24,7 @@ I write about stuff. Find out more about me on the <a href="/about">about</a> pa
             <ul>
                 {% if articles %}
                 {% for article in articles %}
-                <li>{{ article["timestamp"][:10] }} - <a class="article" slug="{{ article.slug }}" href="{{ url_for('detail', slug=article.slug) }}">{{ article.title }}</a></li>
+                <li>{{ article["timestamp"][:10] }} - <a class="article" slug="{{ article.slug }}" title="{{ article.title }}" href="/articles/{{ article.slug }}">{{ article.title }}</a></li>
                 {% endfor %}
                 {% else %}
                 <li>No posts :(</li>
@@ -19,9 +32,6 @@ I write about stuff. Find out more about me on the <a href="/about">about</a> pa
             </ul>
         </div>
             <div class="col">
-                <div class="row mb-3">
-                    {% include 'home_page/category_box.html' %}
-                </div>
                 <div class="row mb-3">
                     {% include 'home_page/concept_box.html' %}
                 </div>

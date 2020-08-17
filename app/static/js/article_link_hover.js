@@ -8,7 +8,7 @@ $(function () {
             timer = setTimeout(function() {
                 timer = null;
                 xhr = $.ajax(
-                    '/article/' + elem.first().attr("slug").trim() + '/popup').done(
+                    '/article/' + elem.first().attr("slug") + '/popup').done(
                         function(data) {
                             xhr = null;
                             elem.popover({

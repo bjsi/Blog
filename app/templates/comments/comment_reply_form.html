@@ -6,7 +6,7 @@
     </button>
 </div>
 <div class="collapse" id="comment-form-{{ comment.uuid }}">
-    <form action="{{ url_for('detail', slug=article.slug, parent='comment', parent_id=comment.uuid) }}" method="post" novalidate>
+    <form action="{{ url_for('comments', slug=article.slug, parent='comment', parent_id=comment.uuid) }}" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>

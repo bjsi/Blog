@@ -1,7 +1,5 @@
-<small>
-    <p>
-        <i class="fa fa-comments-o"></i> Comments: {{ article.comments.count }}  |
-        <i class="fa fa-file-word-o"></i> Words: {{ article.content | wordcount }} |
-        Concepts: {{ article.concepts | count }}
-    </p>
-</small>
+<p>
+    <i class="fa fa-comments-o"></i> Comments: {{ article.comments.count }}  |
+    <i class="fa fa-file-word-o"></i> Words: {{ article.content | striptags | wordcount }} |
+    Concepts: {{ article.concepts | count }}
+</p>

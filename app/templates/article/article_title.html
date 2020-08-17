@@ -1,4 +1,3 @@
 <u>
-    <a href="{{ url_for('detail', slug=article.slug) }}"
-       style="color:black;">{{ article.title }}</a>
+    <a href="{{ '/articles/' + article.slug }}">{{ article.title }}</a>
 </u>

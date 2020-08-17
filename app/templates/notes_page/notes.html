@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div>
+
+    <div class="text-center">
+        <img    class="mb-3"
+                src="/static/images/note-icon.png">
+    </div>
+    <h1>Working Notes</h1>
+    <p>Some rough ideas you might find interesting.
+        <a href="/about">Let me know</a> if you have any thoughts.
+        We can discuss on <a href="https://discord.com/invite/vUQhqCT">Discord</a>
+        or through email.
+    </p>
+
+    {% if notes %}
+        {% for note in notes %}
+            {% include 'notes/note.html' %}
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock page_content %}

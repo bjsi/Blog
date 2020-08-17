@@ -1,7 +1,7 @@
 <h5>
     <span>
         <img src="{{ url_for('static', filename='images/topic_icon.jpg') }}">
-        <a href="{{ url_for('detail', slug=article.slug) }}">
+        <a href="{{ '/articles/' + article.slug }}">
             {{ article.title }}
         </a>
     </span>

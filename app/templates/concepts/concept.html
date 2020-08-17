@@ -1,0 +1,50 @@
+<div>
+    <div id="{{ concept.slug }}" class="card mb-3">
+        <div class="card-body">
+            <span>
+                <h4 class="mb-3">{{ concept.name }}</h4>
+            </span>
+            <p>
+                <i class="fa fa-calendar"></i> Created: {{ concept.timestamp[:10] }} |
+                <i class="fa fa-pencil-square-o"></i> Last Edited: {{ concept.last_edited[:10] }}  |
+                <i class="fa fa-file-word-o"></i> Word Count: {{ concept.content | striptags | wordcount }}
+            </p>
+
+            <hr>
+
+            <p>
+            {% if concept.content %}
+                {{ concept.content | safe }}
+            {% else %}
+                ...
+            {% endif %}
+            </p>
+
+            <hr>
+                <p>
+                    Resources that link here:
+                </p>
+            <span>
+
+                {% for link in concept.links %}
+
+                    {% if "Concept" in link.labels %}
+                        {% include "concepts/links/concept_link.html" %}
+
+                    {% elif "Article" in link.labels  %}
+                        {% include "concepts/links/article_link.html "%}
+
+                    {% elif "Link" in link.labels %}
+                        {% include "concepts/links/link_link.html " %}
+
+                    {% elif "Note" in link.labels %}
+                        {% include "concepts/links/note_link.html" %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </span>
+        </div>
+    </div>
+</div>

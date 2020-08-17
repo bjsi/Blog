@@ -1,14 +1,25 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<h2>Blog Post Summaries</h2>
-{% if articles %}
-    {% for article in articles %}
-        {% include 'article/summary_article.html' %}
-    {% endfor %}
-{% else %}
-    {% include 'article/no_articles_message.html' %}
-{% endif %}
+
+    <div class="text-center">
+        <img class="mb-3" src="/static/images/my-topic-icon.png">
+    </div>
+    <h1>Topics</h1>
+    <p>
+        A collection of articles I wrote.
+    </p>
+
+    {% if articles %}
+        {% for article in articles %}
+            {% include 'article/summary_article.html' %}
+        {% endfor %}
+
+    {% else %}
+        {% include 'article/no_articles_message.html' %}
+
+    {% endif %}
+
 {% endblock page_content %}
 
 {% block pagination %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div>
+
+    <div class="text-center">
+
+        <img class="mb-6"
+             src="/static/images/my-concept-icon.png">
+    </div>
+
+    <h1>
+        <u>Concepts</u>
+    </h1>
+
+    <p>
+        A list of the concepts I frequently use in articles, working notes, podcasts and in my SM collection.
+    </p>
+
+    {% if grouped_concepts %}
+
+        {% for group in grouped_concepts %}
+        <a href="#{{ group[0] }}">{{ group[0] }}</a>
+        <ul>
+            {% for concept in group[1] %}
+                <li>
+                    <a href="#{{ concept.slug }}">{{ concept.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endfor%}
+
+        {% for group in grouped_concepts %}
+            <div id="{{ group[0] }}">
+                <h2>{{ group[0] }}</h2>
+                {% for concept in group[1] %}
+                    {% include 'concepts/concept.html' %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% else %}
+
+        <p>No concepts. Check back later...</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock page_content %}

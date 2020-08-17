@@ -1,5 +1,5 @@
 from typing import List, Dict
-from app.comments import ArticleComments
+from app.models.comments import ArticleComments
 
 
 class BlogArticle:

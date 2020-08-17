@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="fa fa-flask"></i> Experimental Learning</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/articles"><i class="fa fa-pencil"></i> Topics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/notes"><i class="fa fa-sticky-note-o"></i> Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/links"><i class="fa fa-external-link"></i> Links</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/concepts"><i class="fa fa-lightbulb-o"></i> Concepts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/podcasts"><i class="fa fa-podcast"></i> Podcast</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about"><i class="fa fa-info-circle"></i> About</a>
+                </li>
+            </ul>
+            {% if g.search_form %}
+            <form class="form-inline my-2 my-sm-0" method="get" action="{{ url_for('search') }}">
+                <div>
+                    {{ g.search_form.q(size=30, class='form-control mr-sm-2', type='search', placeholder=g.search_form.q.label.text) }}
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>

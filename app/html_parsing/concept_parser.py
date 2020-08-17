@@ -41,18 +41,6 @@ def split_into_sentences(text):
     return sentences
 
 
-class Related(NamedTuple):
-
-    """ Represents a related concept from ConceptNet.
-    """
-
-    name: str
-    weight: float
-
-    def __repr__(self):
-        return f"<Related: name={self.name} weight={self.weight}>"
-
-
 class ConceptMention:
 
     """
@@ -61,10 +49,8 @@ class ConceptMention:
 
     name: str
     mentions: List[str]
-    get_related: bool
-    related: List[Related]
 
-    def __init__(self, name: str, mentions: List[str], get_related: bool):
+    def __init__(self, name: str, mentions: List[str]):
         """
         :param name: Concept name.
         :param mentions: Dict start_char: sentence.
@@ -72,8 +58,6 @@ class ConceptMention:
         """
         self.name = name
         self.mentions = mentions
-        self.get_related = get_related
-        self.related = []
 
     def __repr__(self):
         return f"<ConceptMention name=\'{self.name}\' count={len(self.mentions)}>"
@@ -109,24 +93,23 @@ def parse_concepts(content: str) -> List[ConceptMention]:
     # Get concepts
     for concept in concepts:
         # HTML Element info
-        concept_text = concept.string
-        # TODO: Bug: This adds the lower version to the mention text
-        concept_text = concept_text.lower()
-        attrs = concept.attrs
 
-        # Finding index within text string
+        # The string wrapped in the span tag
+        concept_text = concept.string
+
+        # The "official" name of the concept is in the name attribute
+        concept_name = concept.get("name")
+        if not concept_name:
+            continue
+
+        # Find index within string
         concept.string = sentinel
         idx = soup.get_text().index(sentinel)
         concept.string = concept_text
 
-        # Whether or not to search ConceptNet
-        get_related = True \
-            if attrs.get("get_related") and attrs["get_related"] == 1 \
-            else False
-
         # Add Concept info
         if not data.get(concept_text):
-            data[concept_text] = {"mentions": [], "get_related": True}
+            data[concept_name] = {"mentions": []}
 
         # Find the sentence context of the concept
         sentences = split_into_sentences(soup.get_text())
@@ -136,60 +119,12 @@ def parse_concepts(content: str) -> List[ConceptMention]:
             end_char += len(sentence)
             if concept_text in sentence:
                 if start_char <= idx <= end_char:
-                    mention_sentence = sentence.replace(concept_text, f"<span class='concept'>{concept_text}</span>")
-                    data[concept_text]["mentions"].append(sentence)
+                    mention_sentence = sentence.replace(concept_text, f"<span class='concept' name='{concept_name}'>{concept_text}</span>")
+                    data[concept_name]["mentions"].append(mention_sentence)
                     continue
             start_char = end_char + 1
 
-        data[concept_text]["get_related"] = get_related
-
     return [
-        ConceptMention(name=key, mentions=value["mentions"], get_related=value["get_related"])
+        ConceptMention(name=key, mentions=value["mentions"])
         for key, value in data.items()
     ]
-
-
-class ConceptNet:
-
-    """ Enables querying related concepts from ConceptNet.
-    """
-
-    base_url: str
-    related_url: str
-
-    def __init__(self):
-        self.base_url = "http://api.conceptnet.io"
-        self.related_url = "http://api.conceptnet.io/related"
-
-    def _get_related_concepts(self, name: str) -> List[Related]:
-
-        """ Query the ConceptNet related API.
-
-        :param name: Name of the concept.
-        :return: A list of related concepts.
-        """
-
-        url = f"{self.related_url}/c/en/{name.lower().replace(' ', '_')}?filter=/c/en"
-        obj = requests.get(url).json()
-        ret = []
-        for item in obj["related"]:
-            name = item["@id"].split("/")[3].replace('_', " ")
-            weight = item["weight"]
-            ret.append(Related(name=name, weight=weight))
-        return ret
-
-    def add_related_concepts(self, concepts: List[ConceptMention]) -> List[ConceptMention]:
-
-        """ Get related concepts and weights from ConceptNet.
-
-        :return: A list of ConceptMentions
-        """
-
-        for concept in concepts:
-            if not concept.get_related:
-                continue
-            related = self._get_related_concepts(concept.name)
-            concept.related = related
-        return concepts
-
-

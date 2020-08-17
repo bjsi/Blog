@@ -1,0 +1,21 @@
+<div class="card mb-3" style="background-color: #ffffff;">
+    <div class="card-body">
+        <h5>
+            {{ link.title }}
+        </h5>
+        <p>
+            {{ link.content }}
+        </p>
+        <p>
+            <div>
+                #Author: {{ link.author }}
+            </div>
+            <div>
+                #Link: <a href="{{ link.url }}">{{ link.url }}</a>
+            </div>
+            <div>
+                #Source: {{ link.source }}
+            </div>
+        </p>
+    </div>
+</div>

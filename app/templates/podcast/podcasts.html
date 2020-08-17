@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div>
+
+    <h1>Golden Nuggets Podcast</h1>
+    <div class="text-center">
+        <img style="height: 35%; width: 35%;" src="/static/images/logos/gnp-website-logo.png">
+    </div>
+
+    <p>
+        Golden Nuggets Podcast is a podcast created me and strategypattern (check out his blog <a href="https://again.blog/">here</a>).
+        We mostly discuss learning with Spaced Repetition Systems (such as Anki and SuperMemo).
+    </p>
+    <p>In a rush? We have a <a href="https://www.youtube.com/playlist?list=PLFXunIC-RWpBefFkzkq_c0m2kam5GzrAL">playlist<a> with some of the best nuggets pre-extracted for you.</p>
+
+    {% for podcast in podcasts %}
+        {% include 'podcast.html' %}
+    {% endfor %}
+
+</div>
+
+{% endblock page_content %}
+

@@ -1,5 +1,5 @@
 <div>
-    <form action="{{ url_for('detail', slug=article.slug, parent='article') }}" method="post" novalidate>
+    <form action="{{ url_for('comments', slug=article.slug, parent='article') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
