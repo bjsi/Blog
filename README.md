@@ -1,3 +1,3 @@
-# Blog
+# Neo4j Blog
 
-A blog I made with Flask and Neo4j.
+An old blog I made with Python, Flask and Neo4j.
